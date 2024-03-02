@@ -1,15 +1,11 @@
-import Banner from '../components/Banner'
-import Search from '../components/Search/Search'
-import HouseList from '../components/Houses/HouseList';
+import HouseDetails from "../components/PropertyDetails/HouseDetails";
 
-const Home = () => {
-    return (
-        <>
-            <Banner />
-            <Search />
-            <HouseList />
-        </>
-    )
+const PropertyDetails = () => {
+  return (
+    <>      
+      <HouseDetails />
+    </>
+  )
 }
 
-export default Home;
+export default PropertyDetails

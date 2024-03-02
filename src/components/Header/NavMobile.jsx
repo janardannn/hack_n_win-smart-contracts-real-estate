@@ -1,40 +1,41 @@
-import { Flex, Heading, Button, HStack, chakra, ButtonGroup, useBreakpointValue, Divider } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import NavMobile from './NavMobile';
+import { useRef } from 'react';
 
-const Header = () => {
-    const isDesktop = useBreakpointValue({ base: false, lg: true })
+import { ButtonGroup, VStack, Input, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Button, IconButton, useDisclosure, Center } from '@chakra-ui/react';
+import { FiMenu } from 'react-icons/fi';
 
-    return (
-        <chakra.header id="header" borderBottom='1px solid rgb(0,0,0,0.3)'>
-            <Flex w='100%' py='5' align='center' justify='space-between'>
-                <Link to='/'>
-                    <Heading fontSize='3xl' color='pink.700'>Estatery.</Heading>
-                </Link>
-                {
-                    isDesktop ? (
-                        <>
-                            <ButtonGroup as='nav' variant='link' spacing='5'>
-                                {
-                                    ['Home', 'Features', 'About Us'].map((item) => (
-                                        <Button fontSize='16px' key={item}>{item}</Button>
-                                    ))
-                                }
-                            </ButtonGroup>
-
-                            <HStack>
-                                <Button size='sm' variant='solid'>Contact</Button>
-                                <Button size='sm' variant='outline'>Sign up</Button>
-                            </HStack>
-                        </>
-                    ) : (
-                        <NavMobile />
-                    )
-                }
-            </Flex>
-            {/* <Divider color='pink.800' w={}='20px' />  */}
-        </chakra.header>
-    )
+const NavMobile = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
+  
+  return (
+    <>
+        <IconButton variant='ghost' 
+            icon={<FiMenu fontSize='1.35rem' />}
+            aria-label='Open Menu'
+            onClick={onOpen} ref={btnRef}
+        />
+        <Drawer isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
+            <DrawerOverlay />
+            <DrawerContent>
+                <DrawerCloseButton />
+                <Center>
+                <DrawerHeader>Menu</DrawerHeader>
+                </Center>
+                <DrawerBody px='14' mt='4'>
+                    <VStack as='nav' spacing='8' alignItems='left'>
+                        {
+                            ['Home', 'Features', 'About Us'].map((item)=>(
+                                <Button variant='link' key={item}>{item}</Button>
+                            ))
+                        }
+                        <Button size='sm' variant='solid'>Contact</Button>
+                        <Button size='sm' variant='outline'>Sign up</Button>
+                    </VStack>
+                </DrawerBody>
+            </DrawerContent>
+        </Drawer>
+    </>
+  )
 }
 
-export default Header
+export default NavMobile

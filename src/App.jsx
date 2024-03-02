@@ -15,14 +15,14 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='property-details' element={<PropertyDetails />} >
+          <Route path='property-details' element={ <PropertyDetails /> } >
             <Route path=":propertyId" element={<HouseDetails />} />
           </Route>
           <Route path="*"
-            element={<main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-            }
+                element={ <main style={{ padding: "1rem" }}>
+                            <p>There's nothing here!</p>
+                          </main>
+                        }
           />
         </Routes>
       </Container>

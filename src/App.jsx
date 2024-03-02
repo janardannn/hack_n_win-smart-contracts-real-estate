@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import { Container } from '@chakra-ui/react'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Header from './components/Header/Header';
+import Home from './routes/Home';
+import PropertyDetails from './routes/PropertyDetails';
+import Footer from './components/Footer'
+import HouseProvider from './context/HouseContext';
+import HouseDetails from './components/PropertyDetails/HouseDetails';
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <HouseProvider>
+      <Container maxW='container.lg' px='6'>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='property-details' element={<PropertyDetails />} >
+            <Route path=":propertyId" element={<HouseDetails />} />
+          </Route>
+          <Route path="*"
+            element={<main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+            </main>
+            }
+          />
+        </Routes>
+      </Container>
+      <Footer />
+    </HouseProvider>
   )
 }
 
